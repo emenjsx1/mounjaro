@@ -371,15 +371,18 @@ function initAudioPlayers() {
 
 // 15-Minute Countdown Timer
 function initTimer() {
-  const timerDisplay = document.getElementById('timer-display');
-  if (!timerDisplay) return;
+  const timerDisplays = document.querySelectorAll('#timer-display, .timer-countdown-value');
+  if (timerDisplays.length === 0) return;
 
   let totalSeconds = 15 * 60; // 15 minutes
 
   function updateDisplay() {
     const mins = Math.floor(totalSeconds / 60);
     const secs = totalSeconds % 60;
-    timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    const formatted = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    timerDisplays.forEach(display => {
+      display.textContent = formatted;
+    });
   }
 
   updateDisplay();
